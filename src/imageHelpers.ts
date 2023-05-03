@@ -10,3 +10,7 @@ export async function resize(
     .resize(Number(width), Number(height))
     .toFile(newFilePath);
 }
+
+export function isFileExtSupported(ext: string) {
+  return ['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext);
+}
