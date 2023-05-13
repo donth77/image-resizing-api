@@ -6,7 +6,7 @@ import { ERROR } from '../../errors';
 
 const images = express.Router();
 
-const cacheDuration = 3600; // store in cache for 3600 seconds or 1 hour
+const cacheDuration = 60;
 images.use(cacheMiddleware(cacheDuration));
 
 images.get('/', async (req, res) => {

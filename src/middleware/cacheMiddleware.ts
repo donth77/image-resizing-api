@@ -22,7 +22,7 @@ const cacheMiddleware: CacheMiddleware = (duration) => {
 
     if (cachedContent) {
       console.info(
-        'Accessing cached image' + (req.query?.url ? `- ${req.query.url}` : '')
+        'Accessing cached image' + (req.query?.url ? ` - ${req.query.url}` : '')
       );
       res.set({
         'Content-Type': 'image/png',
