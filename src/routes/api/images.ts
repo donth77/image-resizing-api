@@ -1,28 +1,17 @@
 import express from 'express';
+import validateMiddleware from '../../middleware/validate';
 import cacheMiddleware from '../../middleware/cacheMiddleware';
-import { isNumber } from '../../utils';
 import { resizeImage, downloadImage } from '../../imageHelpers';
 import { ERROR } from '../../errors';
 
 const images = express.Router();
 
-const cacheDuration = 60;
+const cacheDuration = 30;
 images.use(cacheMiddleware(cacheDuration));
-
-images.get('/', async (req, res) => {
+images.get('/', validateMiddleware, async (req, res) => {
   const { url, width, height } = req.query;
 
   console.info(`Request - ${JSON.stringify(req.query, null, 4)}`);
-
-  // Check if query paramters are valid
-  if (!url || !width || !height) {
-    return res.status(400).send(ERROR.MISSING_QUERY_PARAMS);
-  }
-
-  // Check if width and height are valid
-  if (!isNumber(width.toString()) || !isNumber(height.toString())) {
-    return res.status(400).send(ERROR.WIDTH_HEIGHT_INVALID);
-  }
 
   let downloadedImage: Buffer | null = null;
 
